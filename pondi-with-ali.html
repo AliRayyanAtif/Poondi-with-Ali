@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pondi with Ali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EDE6D3;
+    --bg-alt: #E3D9BE;
+    --ink: #2B2620;
+    --ink-soft: #55503F;
+    --pine: #1F3A2E;
+    --brass: #93731F;
+    --brass-line: #A9812F;
+    --burgundy: #7A2E2E;
+    --rule: rgba(43,38,32,0.22);
+    --card-bg: #F5F0E1;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #142019;
+      --bg-alt: #1A2621;
+      --ink: #EAE3CF;
+      --ink-soft: #B9B29B;
+      --pine: #86AD97;
+      --brass: #D8B565;
+      --brass-line: #C7A05C;
+      --burgundy: #D18787;
+      --rule: rgba(234,227,207,0.2);
+      --card-bg: #1C2A23;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #142019;
+    --bg-alt: #1A2621;
+    --ink: #EAE3CF;
+    --ink-soft: #B9B29B;
+    --pine: #86AD97;
+    --brass: #D8B565;
+    --brass-line: #C7A05C;
+    --burgundy: #D18787;
+    --rule: rgba(234,227,207,0.2);
+    --card-bg: #1C2A23;
+  }
+  html{ scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, .display{
+    font-family: "Fraunces", Georgia, "Times New Roman", serif;
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .wrap{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .rule{
+    height: 1px;
+    background: var(--rule);
+    border: none;
+  }
+  section{ padding: 76px 0; }
+  section.alt{ background: var(--bg-alt); }
+  p{ color: var(--ink-soft); font-size: 1.05rem; max-width: 62ch; }
+  p + p{ margin-top: 14px; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: clamp(64px, 12vh, 120px) 0 70px;
+    position: relative;
+  }
+  .stamp{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--brass);
+    border: 1px solid var(--brass-line);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-weight: 500;
+    opacity: 0;
+    animation: rise 0.7s ease-out 0.1s forwards;
+  }
+  .hero h1{
+    font-size: clamp(3.6rem, 11vw, 6.4rem);
+    line-height: 0.92;
+    margin-top: 22px;
+    opacity: 0;
+    animation: rise 0.8s ease-out 0.25s forwards;
+  }
+  .hero .with{
+    display: block;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    color: var(--brass);
+    margin-top: 4px;
+  }
+  .hero .tagline{
+    margin-top: 26px;
+    font-size: 1.15rem;
+    max-width: 46ch;
+    color: var(--ink-soft);
+    opacity: 0;
+    animation: rise 0.8s ease-out 0.42s forwards;
+  }
+  .hero .fineprint{
+    margin-top: 18px;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    font-style: italic;
+    opacity: 0;
+    animation: rise 0.8s ease-out 0.56s forwards;
+  }
+  @keyframes rise{
+    from{ opacity: 0; transform: translateY(14px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .stamp, .hero h1, .hero .tagline, .hero .fineprint{
+      animation: none; opacity: 1; transform: none;
+    }
+  }
+
+  /* ---------- SECTION HEADS ---------- */
+  .head{
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .head .numeral{
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--brass);
+    flex-shrink: 0;
+  }
+  h2{ font-size: clamp(1.7rem, 4vw, 2.2rem); }
+
+  /* ---------- SCALE ---------- */
+  .scale{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 40px 0 6px;
+    gap: 4px;
+  }
+  .scale .mark{
+    flex: 1;
+    text-align: center;
+  }
+  .scale .num{
+    display: block;
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: clamp(1.1rem, 3.4vw, 1.6rem);
+    color: var(--pine);
+    border-bottom: 2px solid var(--brass-line);
+    padding-bottom: 10px;
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .scale .mark:hover .num{
+    color: var(--burgundy);
+    border-color: var(--burgundy);
+    transform: translateY(-3px);
+  }
+  .scale .label{
+    display: block;
+    margin-top: 8px;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    font-style: italic;
+    min-height: 1.4em;
+  }
+
+  /* ---------- RULES LIST ---------- */
+  .rules{ list-style: none; margin-top: 26px; }
+  .rules li{
+    display: flex;
+    gap: 18px;
+    padding: 20px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .rules li:last-child{ border-bottom: 1px solid var(--rule); }
+  .rules .term{
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 1.02rem;
+    width: 108px;
+    flex-shrink: 0;
+    color: var(--pine);
+  }
+  .rules .desc{ color: var(--ink-soft); font-size: 0.99rem; }
+  .rules .desc strong{ color: var(--ink); font-weight: 600; }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{ margin-top: 46px; }
+  .timeline .bar{
+    position: relative;
+    height: 2px;
+    background: var(--rule);
+    margin: 0 4px;
+  }
+  .timeline .fill{
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3%;
+    background: var(--brass-line);
+  }
+  .timeline .years{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .timeline .here{
+    position: absolute;
+    left: 3%;
+    top: -30px;
+    transform: translateX(-50%);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--burgundy);
+    white-space: nowrap;
+  }
+  .timeline .here::after{
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 22px;
+    width: 1px;
+    height: 12px;
+    background: var(--burgundy);
+  }
+
+  /* ---------- CERTIFICATE ---------- */
+  .cert{
+    margin-top: 40px;
+    border: 1.5px solid var(--brass-line);
+    padding: 3px;
+  }
+  .cert-inner{
+    border: 1px solid var(--rule);
+    padding: clamp(30px, 6vw, 52px);
+    text-align: center;
+    position: relative;
+    background: var(--card-bg);
+  }
+  .cert-inner .seal{
+    width: 58px; height: 58px;
+    border: 1.5px solid var(--brass-line);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    color: var(--brass);
+    font-size: 1.3rem;
+  }
+  .cert-inner .ctitle{
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: clamp(1.3rem, 4vw, 1.7rem);
+    color: var(--ink);
+    max-width: 34ch;
+    margin: 0 auto 14px;
+  }
+  .cert-inner .cbody{
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    max-width: 40ch;
+    margin: 0 auto;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding: 56px 0 calc(56px + env(safe-area-inset-bottom, 0px));
+    text-align: center;
+  }
+  footer p{
+    margin: 0 auto;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  @media (max-width: 520px){
+    .rules li{ flex-direction: column; gap: 6px; }
+    .rules .term{ width: auto; }
+    section{ padding: 56px 0; }
+  }
+</style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="wrap">
+      <span class="stamp">Est. 21 September 2026</span>
+      <h1>Pondi<span class="with">with Ali</span></h1>
+      <p class="tagline">A field guide to noticing — and formally scoring — the fine specimens of manhood that cross your path.</p>
+      <p class="fineprint">No sign-up. No app. Just eyes, a number, and a little reverence.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="numeral">I.</span><h2>What is Pondi</h2></div>
+      <p>Pondi is not complicated. You're out in the world — campus, market, wedding, wherever — and you spot him. A specimen. You take in the whole presentation, and you assign a number, one through ten. That's it. That's the sport.</p>
+      <p>It's less about being harsh and more about paying attention. Most of the world walks past God's finer work without ever looking up. Pondi is the practice of looking up.</p>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <div class="head"><span class="numeral">II.</span><h2>The Scale</h2></div>
+      <p>Ten points. No half marks, no grade inflation, no mercy scoring.</p>
+      <div class="scale">
+        <div class="mark"><span class="num">1</span><span class="label">regrettable</span></div>
+        <div class="mark"><span class="num">2</span><span class="label">&nbsp;</span></div>
+        <div class="mark"><span class="num">3</span><span class="label">&nbsp;</span></div>
+        <div class="mark"><span class="num">4</span><span class="label">&nbsp;</span></div>
+        <div class="mark"><span class="num">5</span><span class="label">acceptable</span></div>
+        <div class="mark"><span class="num">6</span><span class="label">&nbsp;</span></div>
+        <div class="mark"><span class="num">7</span><span class="label">&nbsp;</span></div>
+        <div class="mark"><span class="num">8</span><span class="label">noteworthy</span></div>
+        <div class="mark"><span class="num">9</span><span class="label">&nbsp;</span></div>
+        <div class="mark"><span class="num">10</span><span class="label">a miracle, frankly</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="numeral">III.</span><h2>The Fine Print</h2></div>
+      <ul class="rules">
+        <li>
+          <span class="term">Subjects</span>
+          <span class="desc"><strong>Guys only.</strong> If it's not a guy, it's simply outside the scope of this particular field guide. No exceptions, no debates.</span>
+        </li>
+        <li>
+          <span class="term">Judging</span>
+          <span class="desc">Purely visual, purely momentary, purely for fun. Nobody's keeping a permanent record on anyone's soul.</span>
+        </li>
+        <li>
+          <span class="term">Roster</span>
+          <span class="desc"><strong>Open to everyone</strong> — every single person — <strong>except Sara.</strong> This is non-negotiable and not up for appeal.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <div class="head"><span class="numeral">IV.</span><h2>The Season</h2></div>
+      <p>Season One opens 21 September 2026 and runs, in full swing, until 2030.</p>
+      <div class="timeline">
+        <div class="bar">
+          <div class="fill"></div>
+          <span class="here">you are here</span>
+        </div>
+        <div class="years">
+          <span>2026</span><span>2027</span><span>2028</span><span>2029</span><span>2030</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="numeral">V.</span><h2>At Season's End</h2></div>
+      <p>Every field agent who sees the season through earns an official certificate. It won't get you a job. It will make an excellent addition to a fridge, a frame, or a group chat.</p>
+      <div class="cert">
+        <div class="cert-inner">
+          <div class="seal">10</div>
+          <div class="ctitle">Certificate of Distinguished Service</div>
+          <div class="cbody">in the appreciation of fine men, awarded upon the close of the season to those who kept looking up.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <footer>
+    <div class="wrap">
+      <p>Pondi with Ali — established 2026, expiring never (probably).</p>
+    </div>
+  </footer>
+
+</body>
+</html>
